@@ -5,12 +5,14 @@ Mac Gyver Game classes
 import pygame
 from pygame.locals import *
 from constants import *
+import random
 
 class Labyrinth:
 	# This class allows you to create a labyrinth from a text file
 	def __init__(self, fichier):
 		self.fichier = fichier
 		self.structure = []
+		self.objects = {'needle': [], 'tube': [], 'ether': []}
 
 	def create(self):
 		# Creating a list from the text file
@@ -31,12 +33,41 @@ class Labyrinth:
 			# struture_lab save
 			self.structure = structure_lab
 
+	def rand_pos(self):
+		# The random number is between the number of x and y lines
+		rand_number_y = random.randint(0, NUMBER_SPRITE-1)
+		rand_number_x = random.randint(0, NUMBER_SPRITE-1)
+		pos_x = 0
+		pos_y = 0
+		# Check that the element is not a wall
+		while self.structure[rand_number_y][rand_number_x] != '0':
+			rand_number_y = random.randint(0, NUMBER_SPRITE-1)
+			rand_number_x = random.randint(0, NUMBER_SPRITE-1)
+		# Calculation of the position in pixels
+		pos_x = rand_number_x * SIZE_SPRITE
+		pos_y = rand_number_y * SIZE_SPRITE
+		position = [pos_x, pos_y]
+		return position
+
+	def objects_pos(self):
+		avoid_overl = []
+		i = 0
+		for obj in self.objects:
+			avoid_overl.append(self.rand_pos())
+			while avoid_overl.count(avoid_overl[i]) != 1:
+				avoid_overl[i] = self.rand_pos()
+			self.objects[obj] = avoid_overl[i]
+			i += 1
+
 	def display(self, window):
 		# This function allows to display the labyrinth according to the file
 		# Images loading
 		wall = pygame.image.load(IMAGE_GAME_WALL).convert()
 		start = pygame.image.load(IMAGE_GAME_START).convert()
 		end = pygame.image.load(IMAGE_GAME_END).convert_alpha()
+		needle = pygame.image.load(IMAGE_GAME_NEEDLE).convert()
+		tube = pygame.image.load(IMAGE_GAME_TUBE).convert()
+		ether = pygame.image.load(IMAGE_GAME_ETHER).convert()
 
 		# Scan list
 		numb_line = 0
@@ -48,13 +79,18 @@ class Labyrinth:
 				x = numb_box * SIZE_SPRITE
 				y = numb_line * SIZE_SPRITE
 				if sprite == 'w':
-					window.blit(wall, (x,y))
+					window.blit(wall, (x, y))
 				elif sprite == 's':
-					window.blit(start, (x,y))
+					window.blit(start, (x, y))
 				elif sprite == 'e':
-					window.blit(end, (x,y))
+					window.blit(end, (x, y))
 				numb_box += 1
 			numb_line += 1
+
+		# Display objects from the "objects" dictionary
+		window.blit(needle, (self.objects['needle'][0], self.objects['needle'][1]))
+		window.blit(tube, (self.objects['tube'][0], self.objects['tube'][1]))
+		window.blit(ether, (self.objects['ether'][0], self.objects['ether'][1]))
 
 
 class MacGyver:
@@ -100,3 +136,9 @@ class MacGyver:
 				if self.str_labyrinth.structure[self.box_y][self.box_x-1] != 'w':
 					self.box_x -= 1
 					self.x = self.box_x * SIZE_SPRITE
+
+	def take_object(self, objects, window):
+		for pos in objects:
+			if [self.x, self.y] == objects[pos]:
+				print('salut')
+				# supprime la donnee du dico et renvoi true quand dico vide

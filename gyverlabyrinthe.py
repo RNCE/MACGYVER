@@ -63,7 +63,10 @@ def main():
 					# Display and loading of the labyrinth
 					labyrinth = Labyrinth(FILE_LABYRINTH)
 					labyrinth.create()
-					labyrinth.display(window)
+					# Generate a random position for the objects
+					labyrinth.objects_pos()
+					# And display and loading images
+					labyrinth.display(window)					
 
 					# Mac Gyver loading
 					macgyver = MacGyver(labyrinth)
@@ -90,12 +93,16 @@ def main():
 					# MacGyver's movements
 					elif event.key == K_UP:
 						macgyver.move('top')
+						macgyver.take_object(labyrinth.objects, window)
 					elif event.key == K_RIGHT:
 						macgyver.move('right')
+						macgyver.take_object(labyrinth.objects, window)
 					elif event.key == K_DOWN:
 						macgyver.move('down')
+						macgyver.take_object(labyrinth.objects, window)
 					elif event.key == K_LEFT:
 						macgyver.move('left')
+						macgyver.take_object(labyrinth.objects, window)
 
 			# Display with new positions
 			window.blit(game_background, (0,0))
@@ -108,3 +115,21 @@ def main():
 
 if __name__=="__main__":
 	main()
+
+	# otherlist = [[1, 2], [2, 4], [1, 2]]
+
+	# compter = otherlist.count(otherlist[0])
+	# print(compter)
+	# Partie pour faire des tests
+	# objects_list = {'needle': [], 'tube': [], 'ether': []}
+	# for obj in objects_list:
+	# 	print(obj)
+	# 	rand_number_y = random.randint(1, NUMBER_SPRITE-1)
+	# 	rand_number_x = random.randint(1, NUMBER_SPRITE-1)
+	# 	# Check that the element is not a wall
+	# 	objects_list[obj] = [rand_number_x, rand_number_y]
+	# print(objects_list['needle'])
+	# print(objects_list['tube'])
+	# print(objects_list['tube'][0])
+	# rand_number_y = random.randint(1, NUMBER_SPRITE-1)
+	# print(rand_number_y)
