@@ -10,8 +10,9 @@ Dir: macgyver_ressources
 import pygame
 from pygame.locals import *
 
-from classes import *
+from classes import Labyrinth, MacGyver
 from constants import *
+
 
 # main programme
 def main():
@@ -31,6 +32,7 @@ def main():
 		# Variables home, game
 		home = True
 		game = False
+		end_game = False
 
 		# Home loop
 		while home:
@@ -92,18 +94,19 @@ def main():
 						home = True
 					# MacGyver's movements
 					elif event.key == K_UP:
-						macgyver.move('top')
-						macgyver.take_object(labyrinth.objects, window)
+						macgyver.move('top', labyrinth.objects)
 					elif event.key == K_RIGHT:
-						macgyver.move('right')
-						macgyver.take_object(labyrinth.objects, window)
+						macgyver.move('right', labyrinth.objects)
 					elif event.key == K_DOWN:
-						macgyver.move('down')
-						macgyver.take_object(labyrinth.objects, window)
+						macgyver.move('down', labyrinth.objects)
 					elif event.key == K_LEFT:
-						macgyver.move('left')
-						macgyver.take_object(labyrinth.objects, window)
+						macgyver.move('left', labyrinth.objects)
 
+			macgyver.take_object(labyrinth.objects)
+
+			if macgyver.alive and macgyver.winner == True:
+				game = False
+				end_game = True
 			# Display with new positions
 			window.blit(game_background, (0,0))
 			labyrinth.display(window)
@@ -112,24 +115,27 @@ def main():
 			# Refreshment
 			pygame.display.flip()
 
+		while end_game:
+			# Limitation of the loop speed
+			pygame.time.Clock().tick(30)
+
+			# Display and loading of the home screen
+			home = pygame.image.load(IMAGE_END).convert()
+			window.blit(home, (0,0))
+
+			# Refreshment
+			pygame.display.flip()
+
+			# Event management of the home page
+			for event in pygame.event.get():
+				# home to False if the user QUIT
+				if event.type == QUIT:
+					end_game = False
+					main_loop = False
+				elif event.type == KEYDOWN and event.key == K_ESCAPE:
+					home = True
+					end_game = False
+
 
 if __name__=="__main__":
 	main()
-
-	# otherlist = [[1, 2], [2, 4], [1, 2]]
-
-	# compter = otherlist.count(otherlist[0])
-	# print(compter)
-	# Partie pour faire des tests
-	# objects_list = {'needle': [], 'tube': [], 'ether': []}
-	# for obj in objects_list:
-	# 	print(obj)
-	# 	rand_number_y = random.randint(1, NUMBER_SPRITE-1)
-	# 	rand_number_x = random.randint(1, NUMBER_SPRITE-1)
-	# 	# Check that the element is not a wall
-	# 	objects_list[obj] = [rand_number_x, rand_number_y]
-	# print(objects_list['needle'])
-	# print(objects_list['tube'])
-	# print(objects_list['tube'][0])
-	# rand_number_y = random.randint(1, NUMBER_SPRITE-1)
-	# print(rand_number_y)

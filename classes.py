@@ -87,10 +87,14 @@ class Labyrinth:
 				numb_box += 1
 			numb_line += 1
 
-		# Display objects from the "objects" dictionary
-		window.blit(needle, (self.objects['needle'][0], self.objects['needle'][1]))
-		window.blit(tube, (self.objects['tube'][0], self.objects['tube'][1]))
-		window.blit(ether, (self.objects['ether'][0], self.objects['ether'][1]))
+		# Add image of the dictionnary
+		for key in self.objects:
+			if key == 'needle':
+				window.blit(needle, (self.objects['needle'][0], self.objects['needle'][1]))
+			elif key == 'tube':
+				window.blit(tube, (self.objects['tube'][0], self.objects['tube'][1]))
+			elif key == 'ether':
+				window.blit(ether, (self.objects['ether'][0], self.objects['ether'][1]))
 
 
 class MacGyver:
@@ -103,17 +107,26 @@ class MacGyver:
 		self.box_y = 0
 		self.x = 0
 		self.y = 0
-		# Structure du labyrinth
+		# Labyrinth structure
 		self.str_labyrinth = str_labyrinth
+		# Macgyver alives
+		self.alive = True
+		# Macgyver winner
+		self.winner = False
 
-	def move(self, direction):
+	def move(self, direction, objects):
 		# Method for changing position
 		# Up move
 		if direction == 'top':
 			# Avoids going over the scren
 			if self.box_y > 0:
+				if self.str_labyrinth.structure[self.box_y-1][self.box_x] == 'e' and not objects:
+					self.winner = True
+				elif self.str_labyrinth.structure[self.box_y-1][self.box_x] == 'e':
+					self.himself = pygame.image.load(IMAGE_GAME_GYVER_DEAD).convert()
+					self.alive = False
 				# Check that it is not a wall
-				if self.str_labyrinth.structure[self.box_y-1][self.box_x] != 'w':
+				elif self.str_labyrinth.structure[self.box_y-1][self.box_x] != 'w':
 					# One box move
 					self.box_y -= 1
 					# Convert in pixels
@@ -121,24 +134,42 @@ class MacGyver:
 		# Move to the right
 		elif direction == 'right':
 			if self.box_x < (NUMBER_SPRITE - 1):
-				if self.str_labyrinth.structure[self.box_y][self.box_x+1] != 'w':
+				if self.str_labyrinth.structure[self.box_y][self.box_x+1] == 'e' and not objects:
+					self.winner = True
+				elif self.str_labyrinth.structure[self.box_y][self.box_x+1] == 'e':
+					self.himself = pygame.image.load(IMAGE_GAME_GYVER_DEAD).convert()
+					self.alive = False
+				elif self.str_labyrinth.structure[self.box_y][self.box_x+1] != 'w':
 					self.box_x += 1
 					self.x = self.box_x * SIZE_SPRITE
 		# Down move
 		elif direction == 'down':
 			if self.box_y < (NUMBER_SPRITE - 1):
-				if self.str_labyrinth.structure[self.box_y+1][self.box_x] != 'w':
+				if self.str_labyrinth.structure[self.box_y+1][self.box_x] == 'e' and not objects:
+					self.winner = True
+				elif self.str_labyrinth.structure[self.box_y+1][self.box_x] == 'e':
+					self.himself = pygame.image.load(IMAGE_GAME_GYVER_DEAD).convert()
+					self.alive = False
+				elif self.str_labyrinth.structure[self.box_y+1][self.box_x] != 'w':
 					self.box_y += 1
 					self.y = self.box_y * SIZE_SPRITE
 		# Move to the left
 		elif direction == 'left':
 			if self.box_x > 0:
-				if self.str_labyrinth.structure[self.box_y][self.box_x-1] != 'w':
+				if self.str_labyrinth.structure[self.box_y][self.box_x-1] == 'e' and not objects:
+					self.winner = True
+				elif self.str_labyrinth.structure[self.box_y][self.box_x-1] == 'e':
+					self.himself = pygame.image.load(IMAGE_GAME_GYVER_DEAD).convert()
+					self.alive = False
+				elif self.str_labyrinth.structure[self.box_y][self.box_x-1] != 'w':
 					self.box_x -= 1
 					self.x = self.box_x * SIZE_SPRITE
 
-	def take_object(self, objects, window):
-		for pos in objects:
-			if [self.x, self.y] == objects[pos]:
-				print('salut')
-				# supprime la donnee du dico et renvoi true quand dico vide
+	def take_object(self, objects):
+		for key, values in list(objects.items()):
+			if [self.x, self.y] == values:
+				objects.pop(key)
+			elif [self.x, self.y] == values:
+				objects.pop(key)
+			elif [self.x, self.y] == values:
+				objects.pop(key)

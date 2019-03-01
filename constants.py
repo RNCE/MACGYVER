@@ -16,11 +16,13 @@ FILE_LABYRINTH = "struc_labyrinth"
 
 # Image list
 IMAGE_HOME = "my_ressources/background.jpg"
+IMAGE_END = "my_ressources/background.jpg"
 IMAGE_GAME_BACKGROUND = "my_ressources/background.jpg"
 IMAGE_GAME_WALL = "my_ressources/wall.jpg"
 IMAGE_GAME_START = "my_ressources/wall.jpg"
 IMAGE_GAME_END = "my_ressources/guardian.png"
 IMAGE_GAME_GYVER = "my_ressources/macgyver.png"
+IMAGE_GAME_GYVER_DEAD = "my_ressources/gyver_dead.png"
 IMAGE_GAME_NEEDLE = "my_ressources/needle.png"
 IMAGE_GAME_ETHER = "my_ressources/ether.png"
 IMAGE_GAME_TUBE = "my_ressources/tube.png"
