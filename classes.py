@@ -74,8 +74,7 @@ class Labyrinth:
         # according to the file
         # Images loading
         wall = pygame.image.load(cst.IMAGE_GAME_WALL).convert()
-        start = pygame.image.load(cst.IMAGE_GAME_START).convert()
-        end = pygame.image.load(cst.IMAGE_GAME_END).convert_alpha()
+        end = pygame.image.load(cst.IMAGE_GUARDIAN).convert_alpha()
         needle = pygame.image.load(cst.IMAGE_GAME_NEEDLE).convert()
         tube = pygame.image.load(cst.IMAGE_GAME_TUBE).convert()
         ether = pygame.image.load(cst.IMAGE_GAME_ETHER).convert()
@@ -91,8 +90,6 @@ class Labyrinth:
                 y = numb_line * cst.SIZE_SPRITE
                 if sprite == 'w':
                     window.blit(wall, (x, y))
-                elif sprite == 's':
-                    window.blit(start, (x, y))
                 elif sprite == 'e':
                     window.blit(end, (x, y))
                 numb_box += 1
@@ -118,7 +115,7 @@ class MacGyver:
     # MacGyver class
     def __init__(self, str_labyrinth):
         # MacGyver image
-        self.himself = pygame.image.load(cst.IMAGE_GAME_GYVER).convert_alpha()
+        self.himself = pygame.image.load(cst.IMAGE_GYVER).convert_alpha()
         # initial position
         self.box_x = 0
         self.box_y = 0
@@ -146,7 +143,8 @@ class MacGyver:
                 # When Mac Gyver is in front of the guard
                 # but he hasn't the objects
                 elif self.str_lab.structure[self.box_y-1][self.box_x] == 'e':
-                    self.himself = pygame.image.load(cst.GYVER_DEAD).convert()
+                    self.himself = \
+                            pygame.image.load(cst.GYVER_DEAD).convert_alpha()
                     self.alive = False
                 # Check that it is not a wall
                 elif self.str_lab.structure[self.box_y-1][self.box_x] != 'w':
@@ -161,7 +159,8 @@ class MacGyver:
                         and not objects):
                     self.winner = True
                 elif self.str_lab.structure[self.box_y][self.box_x+1] == 'e':
-                    self.himself = pygame.image.load(cst.GYVER_DEAD).convert()
+                    self.himself = \
+                            pygame.image.load(cst.GYVER_DEAD).convert_alpha()
                     self.alive = False
                 elif self.str_lab.structure[self.box_y][self.box_x+1] != 'w':
                     self.box_x += 1
@@ -173,7 +172,8 @@ class MacGyver:
                         and not objects):
                     self.winner = True
                 elif self.str_lab.structure[self.box_y+1][self.box_x] == 'e':
-                    self.himself = pygame.image.load(cst.GYVER_DEAD).convert()
+                    self.himself = \
+                            pygame.image.load(cst.GYVER_DEAD).convert_alpha()
                     self.alive = False
                 elif self.str_lab.structure[self.box_y+1][self.box_x] != 'w':
                     self.box_y += 1
@@ -185,7 +185,8 @@ class MacGyver:
                         and not objects):
                     self.winner = True
                 elif self.str_lab.structure[self.box_y][self.box_x-1] == 'e':
-                    self.himself = pygame.image.load(cst.GYVER_DEAD).convert()
+                    self.himself = \
+                            pygame.image.load(cst.GYVER_DEAD).convert_alpha()
                     self.alive = False
                 elif self.str_lab.structure[self.box_y][self.box_x-1] != 'w':
                     self.box_x -= 1

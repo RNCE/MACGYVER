@@ -9,7 +9,7 @@ Dir: macgyver_ressources
 
 import pygame
 from pygame.locals import QUIT, KEYDOWN, K_F1, K_ESCAPE, K_RIGHT, \
-                          K_LEFT, K_DOWN, K_UP
+                          K_LEFT, K_DOWN, K_UP, K_RETURN
 from classes import Labyrinth, MacGyver
 import constants as cst
 
@@ -93,13 +93,13 @@ def main():
                         game = False
                         home = True
                     # MacGyver's movements
-                    elif event.key == K_UP:
+                    elif event.key == K_UP and macgyver.alive is True:
                         macgyver.move('top', labyrinth.objects)
-                    elif event.key == K_RIGHT:
+                    elif event.key == K_RIGHT and macgyver.alive is True:
                         macgyver.move('right', labyrinth.objects)
-                    elif event.key == K_DOWN:
+                    elif event.key == K_DOWN and macgyver.alive is True:
                         macgyver.move('down', labyrinth.objects)
-                    elif event.key == K_LEFT:
+                    elif event.key == K_LEFT and macgyver.alive is True:
                         macgyver.move('left', labyrinth.objects)
 
             macgyver.take_object(labyrinth.objects)
@@ -107,11 +107,11 @@ def main():
             if macgyver.alive is True and macgyver.winner is True:
                 game = False
                 end_game = True
+
             # Display with new positions
             window.blit(gm_bck, (0, 0))
-            labyrinth.display(window)
             window.blit(macgyver.himself, (macgyver.x, macgyver.y))
-
+            labyrinth.display(window)
             # Refreshment
             pygame.display.flip()
 
@@ -134,9 +134,13 @@ def main():
                     main_loop = False
                 # home to True and end_game to False if the user wants
                 # to return to the home screen
-                elif event.type == KEYDOWN and event.key == K_ESCAPE:
-                    home = True
-                    end_game = False
+                elif event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        home = True
+                        end_game = False
+                    elif event.key == K_RETURN:
+                        end_game = False
+                        game = True
 
 
 if __name__ == "__main__":
