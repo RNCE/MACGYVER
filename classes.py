@@ -95,7 +95,7 @@ class Labyrinth:
                 numb_box += 1
             numb_line += 1
 
-        # The images from the dicionary are added to the labyrinth
+        # The images of objects are added to the labyrinth
         for key in self.objects:
             if key == 'needle':
                 window.blit(needle,
@@ -136,7 +136,7 @@ class MacGyver:
             if self.box_y > 0:
                 # When Mac Gyver is in front of the guard
                 # and he has all the objects
-                # not objects == objects dictionary empty
+                # all objects == objects dictionary empty
                 if (self.str_lab.structure[self.box_y-1][self.box_x] == 'e'
                         and not objects):
                     self.winner = True
