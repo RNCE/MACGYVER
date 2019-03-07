@@ -1,5 +1,5 @@
 ***********************************************************
-			PROJET 3 - MAC GYVER GAME
+		PROJET 3 - MAC GYVER GAME
 ***********************************************************
 
 
@@ -11,8 +11,8 @@ Le jeu consiste à aider Mac Gyver à s'échapper d'un
 labyrinthe. La sortie est surveillée par un gardien.
 Tant que Mac Gyver ne peut pas endormir le gardien avec
 l'objet fabriqué à partir des pièces du labyrinthe, il ne 
-peut pas sortir. S'il se presente au gardien sans avoir 
-toutes les pièces, la partie est terminée. 
+peut pas sortir. S'il se présente au gardien sans avoir 
+toutes les pièces, la partie est perdue.
 
 Les modules/librairies utilisés sont les suivants 
 (également presents dans le fichier "requirements.txt"):
@@ -63,7 +63,7 @@ https://github.com/RNCE/MACGYVER
 
 
 *******************   SOUMETTRE BUGS   ********************
-Si presence de bug dans le code, merci de laisser un 
+Si présence de bug dans le code, merci de laisser un 
 commentaire en expliquant le problème.
 
 *******************      CONTACT       ********************
