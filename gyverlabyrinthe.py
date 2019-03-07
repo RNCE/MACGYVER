@@ -9,7 +9,8 @@ Dir: macgyver_ressources
 
 import pygame
 from pygame.locals import QUIT, KEYDOWN, K_F1, K_ESCAPE, K_RIGHT, \
-                          K_LEFT, K_DOWN, K_UP, K_RETURN
+                          K_LEFT, K_DOWN, K_UP, K_RETURN, \
+                          MOUSEBUTTONDOWN
 from classes import Labyrinth, MacGyver
 import constants as cst
 
@@ -54,7 +55,9 @@ def main():
                     home = False
                     main_loop = False
 
-                elif event.type == KEYDOWN and event.key == K_F1:
+                elif (event.type == KEYDOWN and event.key == K_F1
+                        or event.type == MOUSEBUTTONDOWN and
+                        event.button == 1):
                     # home to False and game to True
                     home = False
                     game = True
@@ -93,20 +96,16 @@ def main():
                         game = False
                         home = True
                     # MacGyver's movements
-                    elif event.key == K_UP and macgyver.alive is True:
+                    elif event.key == K_UP and macgyver.win is None:
                         macgyver.move('top', labyrinth.objects)
-                    elif event.key == K_RIGHT and macgyver.alive is True:
+                    elif event.key == K_RIGHT and macgyver.win is None:
                         macgyver.move('right', labyrinth.objects)
-                    elif event.key == K_DOWN and macgyver.alive is True:
+                    elif event.key == K_DOWN and macgyver.win is None:
                         macgyver.move('down', labyrinth.objects)
-                    elif event.key == K_LEFT and macgyver.alive is True:
+                    elif event.key == K_LEFT and macgyver.win is None:
                         macgyver.move('left', labyrinth.objects)
 
             macgyver.take_object(labyrinth.objects)
-
-            if macgyver.alive is True and macgyver.winner is True:
-                game = False
-                end_game = True
 
             # Display with new positions
             window.blit(gm_bck, (0, 0))
@@ -115,14 +114,23 @@ def main():
             # Refreshment
             pygame.display.flip()
 
+            # win is True or False
+            if macgyver.win is not None:
+                game = False
+                end_game = True
+                # win is True if Mac Gyver has all objects
+                if macgyver.win is True:
+                    home = pygame.image.load(cst.IMAGE_WIN).convert()
+                # win is False if Mac Gyver has not all objects
+                elif macgyver.win is False:
+                    home = pygame.image.load(cst.IMAGE_LOSE).convert()
+                    # Wait 1s
+                    pygame.time.delay(1000)
+
         while end_game:
             # Limitation of the loop speed
             pygame.time.Clock().tick(30)
-
-            # Display and loading of the end_game screen
-            home = pygame.image.load(cst.IMAGE_END).convert()
             window.blit(home, (0, 0))
-
             # Refreshment
             pygame.display.flip()
 
