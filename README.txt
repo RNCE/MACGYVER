@@ -53,7 +53,7 @@ Avec la version de Python définie ci-dessus, installer
 Pygame : "pip install pygame"
 Ouvrir une console Python : 
 "import pygame". Si aucune erreur, Pygame est bien installé.
-A partir du dossier cloner, lancer le jeu :
+A partir du dossier cloné, lancer le jeu :
 "python gyverlabyrinthe.py"
 
 
