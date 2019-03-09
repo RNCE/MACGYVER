@@ -12,7 +12,7 @@ TITLE_WINDOW = "MAC GYVER GAME"
 IMAGE_ICON = "my_ressources/macgyver.png"
 
 # Labyrinth text file
-FILE_LABYRINTH = "struc_labyrinth"
+FILE_LABYRINTH = "struc_labyrinth.txt"
 
 # Image list
 IMAGE_HOME = "my_ressources/home.png"
