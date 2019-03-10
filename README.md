@@ -1,7 +1,7 @@
-#titre PROJET 3 - MACGYVER GAME 
+# PROJET 3 - MACGYVER GAME 
 
 
-##titre DESCRIPTION
+## DESCRIPTION
 
 Le projet 3 est un jeu 2D développé avec la bibliothèque **Pygame**.
 
@@ -23,17 +23,17 @@ Les modules/librairies utilisés sont les suivants (également présents dans le
 * wrapt==1.11.1  
 
 
-##titre PRE-REQUIS
+## PRE-REQUIS
 
 Version de **Python 3.4 ou supérieure**.
 
 
-##titre EXEMPLES FONCTIONNEMENT
+## EXEMPLES FONCTIONNEMENT
 
 Lorsque la première fenêtre de l'application s'affiche, appuyer sur *F1* ou clique gauche de la souris pour débuter la partie.
 
 
-##titre INSTALLER
+## INSTALLER
 
 * Copier les fichiers du lien https://github.com/RNCE/MACGYVER.
 * Installer Pygame en ligne de commande : "pip install pygame"
@@ -42,6 +42,6 @@ Lorsque la première fenêtre de l'application s'affiche, appuyer sur *F1* ou cl
 * A partir du dossier cloné, lancer le jeu : "python gyverlabyrinthe.py"
 
 
-##titre SOUMETTRE BUGS
+## SOUMETTRE BUGS
 
 Si vous rencontrez un bug pendant le jeu, merci de laisser un commentaire en expliquant le problème.
