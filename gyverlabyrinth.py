@@ -26,6 +26,8 @@ def main():
     pygame.display.set_icon(icon)
     # Title
     pygame.display.set_caption(cst.TITLE_WINDOW)
+    # Font
+    font = pygame.font.SysFont("Comicsansms", 20)
 
     # Main loop
     main_loop = True
@@ -106,11 +108,14 @@ def main():
                         macgyver.move('left', labyrinth.objects)
 
             macgyver.take_object(labyrinth.objects)
-
             # Display with new positions
             window.blit(gm_bck, (0, 0))
             window.blit(macgyver.himself, (macgyver.x, macgyver.y))
             labyrinth.display(window)
+            pygame.draw.rect(window, (0, 0, 0),
+                             (cst.SIZE_WINDOW - 60, 0, 60, 30))
+            window.blit(font.render("{}/3".format(macgyver.counter),
+                        True, (241, 248, 247)), (cst.SIZE_WINDOW - 45, 0))
             # Refreshment
             pygame.display.flip()
 

@@ -125,6 +125,8 @@ class MacGyver:
         self.str_lab = str_labyrinth
         # Macgyver escapes
         self.win = None
+        # object counter
+        self.counter = 0
 
     def move(self, direction, objects):
         # Method for changing position
@@ -197,7 +199,4 @@ class MacGyver:
                 # if the Mac Gyver position corresponds to the position of
                 # the object, the object is removed from the dictionary
                 objects.pop(key)
-            elif [self.x, self.y] == values:
-                objects.pop(key)
-            elif [self.x, self.y] == values:
-                objects.pop(key)
+                self.counter += 1
